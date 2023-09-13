@@ -5,69 +5,60 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Genrics {
-	private static double calculateSum(List<Number> list) {
-	        double sum = 0;
-	        for (Number num : list) {
-	            sum += num.doubleValue();
-	        }
-	        return sum;
-	    }
 
-	private static void sortList(List<Number> list) {
-	        Collections.sort(list, (n1, n2) -> Double.compare(n1.doubleValue(), n2.doubleValue()));
-	    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<Number> numberList = new ArrayList<>();
+        List<Number> numbers = new ArrayList<>();
 
         while (true) {
             System.out.println("Menu:");
-            System.out.println("1. Accept and add integers");
-            System.out.println("2. Accept and add doubles");
-            System.out.println("3. Calculate sum");
+            System.out.println("1. Add Integer");
+            System.out.println("2. Add Double");
+            System.out.println("3. Calculate Sum");
             System.out.println("4. Sort");
             System.out.println("5. Exit");
             System.out.print("Enter your choice: ");
+
             int choice = scanner.nextInt();
 
             switch (choice) {
                 case 1:
-                    System.out.print("Enter integers (0 to stop): ");
-                    int num;
-                    while ((num = scanner.nextInt()) != 0) {
-                        numberList.add(num);
-                    }
+                    System.out.print("Enter an integer: ");
+                    int intValue = scanner.nextInt();
+                    numbers.add(intValue);
                     break;
                 case 2:
-                    System.out.print("Enter doubles (0 to stop): ");
-                    double dbl;
-                    while ((dbl = scanner.nextDouble()) != 0) {
-                        numberList.add(dbl);
-                    }
+                    System.out.print("Enter a double: ");
+                    double doubleValue = scanner.nextDouble();
+                    numbers.add(doubleValue);
                     break;
                 case 3:
-                    if (!numberList.isEmpty()) {
-                        double sum = calculateSum(numberList);
-                        System.out.println("Sum: " + sum);
-                    } else {
-                        System.out.println("List is empty. Please add numbers first.");
-                    }
+                    double sum = calculateSum(numbers);
+                    System.out.println("Sum: " + sum);
                     break;
                 case 4:
-                    if (!numberList.isEmpty()) {
-                        sortList(numberList);
-                        System.out.println("Sorted list: " + numberList);
-                    } else {
-                        System.out.println("List is empty. Please add numbers first.");
-                    }
+                    sortList(numbers);
+                    System.out.println("Sorted list: " + numbers);
                     break;
                 case 5:
+                    System.out.println("Exiting program.");
                     scanner.close();
-                    System.out.println("Exiting the program.");
                     System.exit(0);
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
         }
+    }
+
+    public static double calculateSum(List<? extends Number> numbers) {
+        double sum = 0;
+        for (Number number : numbers) {
+            sum += number.doubleValue();
+        }
+        return sum;
+    }
+
+    public static void sortList(List<? extends Number> numbers) {
+        Collections.sort(numbers, (a, b) -> Double.compare(a.doubleValue(), b.doubleValue()));
     }
 }
