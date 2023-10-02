@@ -17,7 +17,7 @@ public class Genrics {
             System.out.println("3. Calculate Sum");
             System.out.println("4. Sort");
             System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
+            System.out.print("Enter your choice:");
 
             int choice = scanner.nextInt();
 
